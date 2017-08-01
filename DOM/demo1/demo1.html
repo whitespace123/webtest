@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>Image Gallery</title>
+		<script type="text/javascript" src="scripts/showPic.js"></script>
+		<link rel="stylesheet" href="styles/layout.css" />
+	</head>
+
+	<body>
+		<h1>Snapshots</h1>
+		<ul>
+			<li>
+				<!--这里this代表当前元素节点对象-->
+				<a href="images/fireworks.jpg" title="A firework display" onclick="showPic(this);return false;">Fireworks</a>
+			</li>
+			<li>
+				<a href="images/coffee.jpg" title="A cup of coffee" onclick="showPic(this);return false;">coffee</a>
+			</li>
+			<li>
+				<a href="images/bigben.jpg" title="The famous clock" onclick="showPic(this);return false;">bigben</a>
+			</li>
+			<li>
+				<a href="images/rose.jpg" title="A red rose" onclick="showPic(this);return false;">Rose</a>
+			</li>
+		</ul>
+		<img id="placeholder" src="images/placeholder.gif" alt="my img gallary" />
+		<p id="description">
+			choose an image.</p>
+	</body>
+
+</html>
