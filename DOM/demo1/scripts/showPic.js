@@ -17,3 +17,4 @@ function countBodyChildren() {
 		alert(children[i].nodeType);
 	}
 }
+
