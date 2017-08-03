@@ -3,11 +3,13 @@ window.onload = function() {
 	var arr = document.getElementsByTagName("a");
 	for (var i = 0; i < arr.length; i++) {
 		if (arr[i].getAttribute("class") === "popup") {
-			var url = arr[i].getAttribute("href");
+			//var url = arr[i].getAttribute("href");
 			//无法直接调用window.onclick=go(url);
-			window.onclick = function() {
+			//alert(i); 0
+			arr[i].onclick = function() {
+				//alert(i); //1
 				//返回值为false阻止a标签进行页面跳转
-				return go(url);
+				return go(this.getAttribute("href"));
 			}
 		}
 	}
