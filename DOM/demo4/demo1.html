@@ -1,0 +1,26 @@
+<!DOCTYPE  html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<title>Test</title>
+		<script type="text/javascript" src="scripts/example.js">
+			 /* 使用js来对页面插入动态的标签document.write("<p>HelloWolrd</p>")*/
+		</script>
+	</head>
+
+	<body>
+		<h1>我不怕innerHtml属性,但我怕write方法</h1>
+		<button title="<p>HelloWorld</p>">我是write我能吃了所有</button>
+		<div id="testdiv">
+			<p>This is<em> my </em>content.</p>
+			<!--innnerHtml属性会替换父元素中的所有子元素，所以把button拿出来-->
+		</div>
+		<button title="<p>I inserted <em>this</em> comtent.</p>">我能改变文本</button>
+		<br />
+		<button>我也能改变文本</button>
+		<br />
+		<button>实话告诉你，我可以创造标签</button>
+	</body>
+
+</html>
