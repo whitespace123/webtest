@@ -1,0 +1,13 @@
+#slideShow {
+	/*width和height的px决定了overflow的显示的px*/
+	
+	width: 100px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+}
+#preview {
+	left: 0px;
+	top: 0px;
+	position: absolute;
+}
