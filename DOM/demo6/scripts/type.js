@@ -31,13 +31,7 @@ window.onload = function() {
 }
 
 function indexOf(button, value) {
-	var binary = button.length / 2;
-	for (var i = 0; i < binary; i++) {
-		if (value == button[i]) {
-			return i;
-		}
-	}
-	for (var i = binary; i < button.length; i++) {
+	for (var i = 0; i < button.length; i++) {
 		if (value == button[i]) {
 			return i;
 		}
