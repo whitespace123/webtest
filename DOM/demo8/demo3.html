@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>video/audio</title>
+		<script type="text/javascript" src="script/player.js"></script>
+		<link rel="stylesheet" href="css/player.css"/>
+	</head>
+
+	<body>
+		<div class="video-wrapper">
+			<!--因为有些浏览器不支持某些视频格式，需要兼容性-->
+			<video id="movie" preload controls>
+				<!--各种不同格式的视频-->
+				<source src="movie.mp4" />
+				<source src="movie.webm" type="video/webm; codecs='vp8,vorbis'" />
+				<source src="movie.ogv" type="video/ogg; codecs='theora,vorbis'" />
+				<!--当浏览器不支持视频播放时-->
+				<p>Download movie As
+					<a href="movie.mp4">MP4</a>
+					<a href="movie.mp4">WebM</a>
+					<a href="movie.mp4">Ogg</a>
+				</p>
+			</video>
+		</div>
+		<audio src="sound.ogg">
+			<!--当浏览器不支持音频播放时-->
+			<a href="sound.ogg">Download sound.ogg</a>
+		</audio>
+	</body>
+
+</html>
