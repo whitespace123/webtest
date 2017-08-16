@@ -52,6 +52,7 @@ function highLightPage() {
 	//遍历数组，并比对其href和连接的href
 	for (var i = 0; i < a.length; i++) {
 		var href = a[i].getAttribute("href");
+		//window.location.href是当前所在的链接
 		if (window.location.href.indexOf(href) != -1) {
 			a[i].className = "here";
 			var text = a[i].childNodes[0].nodeValue.toLowerCase();
@@ -67,7 +68,7 @@ function moveElement(elementID, left, top, time) {
 	//获取元素对象，这里传递字符串而不是对象的原因是在setTimeout中参数会将对象转换成地址字符串
 	var elem = document.getElementById(elementID);
 	//如果元素对象未设置初始值的话，设置初始值
-	if (!elem.style.left) { 
+	if (!elem.style.left) {
 		elem.style.left = "0px";
 	}
 	if (!elem.style.top) {
@@ -114,10 +115,19 @@ function moveElement(elementID, left, top, time) {
 
 //设置动画驱动
 function prepareSlideshow() {
+	//如果不存在intro则返回，跳转页面时不设置对js有影响
+	if (!document.getElementById("intro")) {
+		return false;
+	}
 	//获得p元素节点对象，在下面增加div并添加img子节点
 	var intro = document.getElementById("intro");
 	var div = document.createElement("div");
 	div.setAttribute("id", "slideshow");
+	//利用绝对定位的重叠让图片的透明圆角
+	var frame = document.createElement("img");
+	frame.id = "frame";
+	frame.src = "images/frame.gif";
+	div.appendChild(frame);
 	var img = document.createElement("img");
 	img.id = "preview";
 	img.src = "images/slideshow.gif";
@@ -125,28 +135,129 @@ function prepareSlideshow() {
 	div.appendChild(img);
 	insertAfter(div, intro);
 	//设置字符串变量用来获取连接的地址
-	var whereToGo="";
-	var a = intro.getElementsByTagName("a");
+	var whereToGo = "";
+	var a = document.getElementsByTagName("a");
 	//遍历连接对象并给予事件
 	for (var i = 0; i < a.length; i++) {
-		a[i].onmouseover=function(){
-			whereToGo=this.getAttribute("href");
-			if(whereToGo=="about.html"){
-				moveElement("preview",-150,0,5);
+		a[i].onmouseover = function() {
+			whereToGo = this.getAttribute("href");
+			if (whereToGo == "about.html") {
+				moveElement("preview", -150, 0, 5);
 			}
-			if(whereToGo=="photos.html"){
-				moveElement("preview",-300,0,5);
+			if (whereToGo == "photos.html") {
+				moveElement("preview", -300, 0, 5);
 			}
-			if(whereToGo=="live.html"){
-				moveElement("preview",-450,0,5);
+			if (whereToGo == "live.html") {
+				moveElement("preview", -450, 0, 5);
 			}
-			if(whereToGo=="contact.html"){
-				moveElement("preview",-600,0,5);
+			if (whereToGo == "contact.html") {
+				moveElement("preview", -600, 0, 5);
 			}
 		}
-		a[i].onmouseout=function(){ 
-				moveElement("preview",0,0,5);
+		a[i].onmouseout = function() {
+			moveElement("preview", 0, 0, 5);
 		}
 	}
 }
 addLoadEvent(prepareSlideshow);
+
+//折叠连接所在的文本，使页面更简洁
+function showSection() {
+	//获取文本的父id
+	var jay = document.getElementById("jay");
+	var domsters = document.getElementById("domsters");
+	//如果当前页面有该id，则初始化隐藏文本
+	if (jay && domsters) {
+		jay.style.display = "none";
+		domsters.style.display = "none";
+	}
+	var nav = document.getElementsByTagName("nav")[1];
+	if (!nav) {
+		return false;
+	}
+	var a = nav.getElementsByTagName("a");
+	//点击事件触发让点击到的链接所在的文本显示在页面上
+	for (var i = 0; i < a.length; i++) {
+		a[i].onclick = function() {
+			var href = this.getAttribute("href");
+			if (href == ("#" + jay.id)) {
+				jay.style.display = "block";
+			} else {
+				jay.style.display = "none";
+			}
+
+			if (href == ("#" + domsters.id)) {
+				domsters.style.display = "block";
+			} else {
+				domsters.style.display = "none";
+			}
+		}
+	}
+}
+addLoadEvent(showSection);
+
+//显示图片在页面中
+function showPic() {
+	//获取链接所在的父节点
+	var imagegallery = document.getElementById("imagegallery");
+	//如果该页面没有这个父节点，返回false
+	if (!imagegallery) {
+		return false;
+	}
+	//创建模板
+	var p = document.createElement("p");
+	var img = document.createElement("img");
+	//这里hbuilder自动添加路径出了问题
+	img.src = "images/placeholder.gif"
+	p.appendChild(document.createTextNode("Choose an image"));
+	insertAfter(p, imagegallery);
+	insertAfter(img, p)
+	var a = imagegallery.getElementsByTagName("a");
+	//点击链接后，将该链接的href属性赋予模板上，并返回false阻止链接跳转
+	for (var i = 0; i < a.length; i++) {
+		a[i].onclick = function() {
+			img.src = this.getAttribute("href")
+			return false;
+		}
+	}
+}
+addLoadEvent(showPic);
+
+function stripeTables() {
+	var tbody = document.getElementsByTagName("tbody")[0];
+	if (!tbody) {
+		return false;
+	}
+	var tr = tbody.getElementsByTagName("tr");
+	for (var i = 0; i < tr.length; i++) {
+		if (i % 2 == 0) {
+			addClass(tr[i], "odd");
+		}
+		addClass(tr[i], "highlight");
+	}
+}
+addLoadEvent(stripeTables)
+
+function displayAbbreviations() {
+	var table = document.getElementsByTagName("table")[0];
+	if (!table) {
+		return false;
+	}
+	var h3 = document.createElement("h3");
+	h3.appendChild(document.createTextNode("Abbreviations"));
+	var abbr = table.getElementsByTagName("abbr");
+	var dl = document.createElement("dl");
+	for (var i = 0; i < abbr.length; i++) {
+		var dt = document.createElement("dt");
+		var text1 = document.createTextNode(abbr[i].childNodes[0].nodeValue);
+		dt.appendChild(text1);
+		var dd=document.createElement("dd");
+		var text2 = document.createTextNode(abbr[i].getAttribute("title"));
+		dd.appendChild(text2);
+		dl.appendChild(dt);
+		dl.appendChild(dd);
+	}
+	insertAfter(h3, table);
+	insertAfter(dl,h3);
+}
+addLoadEvent(displayAbbreviations)

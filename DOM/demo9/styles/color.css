@@ -2,6 +2,9 @@ body {
 	color: #fb5;
 	background-color: #334;
 }
+a#trans:link {
+	background-color: transparent;
+}
 a:link {
 	color: #445;
 	background-color: #eb6;
@@ -68,15 +71,17 @@ th {
 	color: #edc;
 	background-color: #455;
 }
-tr td {
+/*这里需要去掉td防止伪类的权值过低*/
+
+tr {
 	color: #223;
 	background-color: #eb6;
 }
-tr.odd td {
+tr.odd {
 	color: #223;
 	background-color: #ec8;
 }
-tr.highlight td {
+tr.highlight:hover {
 	color: #223;
 	background-color: #cba;
 }
