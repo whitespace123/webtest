@@ -223,41 +223,58 @@ function showPic() {
 }
 addLoadEvent(showPic);
 
+//给表格设置背景色
 function stripeTables() {
+	//获取tbody元素节点对象
 	var tbody = document.getElementsByTagName("tbody")[0];
+	//如果tbody不存在则返回false
 	if (!tbody) {
 		return false;
 	}
+	//获取tbody下的子元素tr节点数组
 	var tr = tbody.getElementsByTagName("tr");
 	for (var i = 0; i < tr.length; i++) {
+		//遍历数组，如果为偶数时，添加odd类选择器
 		if (i % 2 == 0) {
 			addClass(tr[i], "odd");
 		}
+		//并给所有的tr添加highlight类选择器
 		addClass(tr[i], "highlight");
 	}
 }
 addLoadEvent(stripeTables)
 
+//显示dl列表
 function displayAbbreviations() {
+	//获取文档中的第一个table元素节点对象
 	var table = document.getElementsByTagName("table")[0];
+	//如果不存在则返回false
 	if (!table) {
 		return false;
 	}
+	//创建h3元素节点对象
 	var h3 = document.createElement("h3");
+	//创建文本节点对象，并加入到h3的子元素中
 	h3.appendChild(document.createTextNode("Abbreviations"));
+	//获取abbr元素节点对象数组
 	var abbr = table.getElementsByTagName("abbr");
+	//创建dl对象
 	var dl = document.createElement("dl");
 	for (var i = 0; i < abbr.length; i++) {
+		//遍历数组，将创建dt个dd对象，并添加文本子节点
 		var dt = document.createElement("dt");
 		var text1 = document.createTextNode(abbr[i].childNodes[0].nodeValue);
 		dt.appendChild(text1);
-		var dd=document.createElement("dd");
+		var dd = document.createElement("dd");
 		var text2 = document.createTextNode(abbr[i].getAttribute("title"));
 		dd.appendChild(text2);
 		dl.appendChild(dt);
 		dl.appendChild(dd);
 	}
+	//插入h3元素节点对象
 	insertAfter(h3, table);
-	insertAfter(dl,h3);
+	//插入dl元素节点对象
+	insertAfter(dl, h3);
 }
 addLoadEvent(displayAbbreviations)
+
